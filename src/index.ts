@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { Album } from './types.d.ts'
+import type { Album } from '../types.js'
 import qs from 'qs'
 
 const TAK_ARTIST_ID = process.env.SPOTIFY_ARTIST_ID
@@ -7,7 +7,7 @@ const TAK_ARTIST_ID = process.env.SPOTIFY_ARTIST_ID
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-export const getAuthToken = async () => {
+export const getAuthToken = async (id:string, secret:string) => {
   const headers = {
     headers: {
       Accept: 'application/json',
@@ -17,8 +17,8 @@ export const getAuthToken = async () => {
 
   const data = {
     grant_type: 'client_credentials',
-    client_id: clientId,
-    client_secret: clientSecret
+    client_id: id,
+    client_secret: secret
   };
 
   try {
@@ -46,12 +46,23 @@ const getInfo =  async (token: string) => {
       headers
     );
     const albums: Album[] = response.data.items
+    console.log('********************');
+    console.log({albums});
+    console.log('********************');
     console.log(albums.sort((a, b) => a.release_date > b.release_date ? -1 : 1 ).map(album => album.name));
   } catch (error) {
     console.log(error);
   }
 };
 
-const token = await getAuthToken()
+const main = async () => {
+  const token = await getAuthToken()
+  getInfo(token)
+}
 
-getInfo(token)
+// main()
+
+export const getAlbumNames = (albums: Album[]): string[] => {
+  const albumsByReleaseDateDesc = albums.sort((a, b) => a.release_date > b.release_date ? -1 : 1 )
+  return albumsByReleaseDateDesc.map(album => album.name)
+}

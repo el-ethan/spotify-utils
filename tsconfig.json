@@ -10,7 +10,7 @@
       "moduleResolution":"nodenext"
     },
     "files": [
-        "index.ts"
+        "src/index.ts"
     ],
     "ts-node": {
         "esm": true,
