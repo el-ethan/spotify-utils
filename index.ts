@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from 'axios'
+import type { Album } from './types.d.ts'
 import qs from 'qs'
 
 const TAK_ARTIST_ID = process.env.SPOTIFY_ARTIST_ID
@@ -32,7 +33,7 @@ export const getAuthToken = async () => {
   }
 };
 
-const getInfo =  async (token) => {
+const getInfo =  async (token: string) => {
   const headers = {
     headers: {
       Authorization: `Bearer ${token}`
@@ -44,7 +45,8 @@ const getInfo =  async (token) => {
       `https://api.spotify.com/v1/artists/${TAK_ARTIST_ID}/albums`,
       headers
     );
-    console.log(response.data.items.sort((a, b) => a.release_date > b.release_date ? -1 : 1 ).map(album => album.name));
+    const albums: Album[] = response.data.items
+    console.log(albums.sort((a, b) => a.release_date > b.release_date ? -1 : 1 ).map(album => album.name));
   } catch (error) {
     console.log(error);
   }
