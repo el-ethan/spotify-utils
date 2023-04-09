@@ -8,13 +8,13 @@ const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 export const getAuthToken = async () => {
-
   const headers = {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   };
+
   const data = {
     grant_type: 'client_credentials',
     client_id: clientId,
