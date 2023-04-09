@@ -1,12 +1,13 @@
 import axios from 'axios';
 import qs from 'qs'
 
-const TAK_ARTIST_ID = '2ax0J2OsLpsH9kgAT6eqng'
+const TAK_ARTIST_ID = process.env.SPOTIFY_ARTIST_ID
+
+const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 export const getAuthToken = async () => {
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-  
+
   const headers = {
     headers: {
       Accept: 'application/json',
