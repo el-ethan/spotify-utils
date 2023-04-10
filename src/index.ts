@@ -46,9 +46,6 @@ const getInfo =  async (token: string) => {
       headers
     );
     const albums: Album[] = response.data.items
-    console.log('********************');
-    console.log({albums});
-    console.log('********************');
     console.log(albums.sort((a, b) => a.release_date > b.release_date ? -1 : 1 ).map(album => album.name));
   } catch (error) {
     console.log(error);
@@ -56,7 +53,7 @@ const getInfo =  async (token: string) => {
 };
 
 const main = async () => {
-  const token = await getAuthToken()
+  const token = await getAuthToken(clientId, clientSecret)
   getInfo(token)
 }
 
